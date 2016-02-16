@@ -12,6 +12,8 @@
 		0AC29B4D1C7292420061D8D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AC29B4B1C7292420061D8D1 /* Main.storyboard */; };
 		0AC29B4F1C7292420061D8D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0AC29B4E1C7292420061D8D1 /* Assets.xcassets */; };
 		0AC29B521C7292420061D8D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AC29B501C7292420061D8D1 /* LaunchScreen.storyboard */; };
+		0AC29B9B1C729B650061D8D1 /* TwitterClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC29B9A1C729B650061D8D1 /* TwitterClient.swift */; };
+		EADAD2CD4038D4D849879A25 /* Pods_Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE2C162157879353BFC170A2 /* Pods_Twitter.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,10 @@
 		0AC29B4E1C7292420061D8D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0AC29B511C7292420061D8D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0AC29B531C7292420061D8D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0AC29B9A1C729B650061D8D1 /* TwitterClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterClient.swift; sourceTree = "<group>"; };
+		C03B5BAD24F567200134EDA2 /* Pods-Twitter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twitter.release.xcconfig"; path = "Pods/Target Support Files/Pods-Twitter/Pods-Twitter.release.xcconfig"; sourceTree = "<group>"; };
+		C03C9BCD0F0F90F677932438 /* Pods-Twitter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twitter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Twitter/Pods-Twitter.debug.xcconfig"; sourceTree = "<group>"; };
+		EE2C162157879353BFC170A2 /* Pods_Twitter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Twitter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EADAD2CD4038D4D849879A25 /* Pods_Twitter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +47,8 @@
 			children = (
 				0AC29B461C7292420061D8D1 /* Twitter */,
 				0AC29B451C7292420061D8D1 /* Products */,
+				29804846BBFD47F713CA9368 /* Pods */,
+				C29DF09EDE2CC271AF090164 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +63,48 @@
 		0AC29B461C7292420061D8D1 /* Twitter */ = {
 			isa = PBXGroup;
 			children = (
+				0AC29B991C729A7B0061D8D1 /* API */,
 				0AC29B471C7292420061D8D1 /* AppDelegate.swift */,
 				0AC29B491C7292420061D8D1 /* ViewController.swift */,
 				0AC29B4B1C7292420061D8D1 /* Main.storyboard */,
 				0AC29B4E1C7292420061D8D1 /* Assets.xcassets */,
 				0AC29B501C7292420061D8D1 /* LaunchScreen.storyboard */,
 				0AC29B531C7292420061D8D1 /* Info.plist */,
+				0AC29B981C729A0E0061D8D1 /* Supporting Files */,
 			);
 			path = Twitter;
+			sourceTree = "<group>";
+		};
+		0AC29B981C729A0E0061D8D1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0AC29B991C729A7B0061D8D1 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				0AC29B9A1C729B650061D8D1 /* TwitterClient.swift */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
+		29804846BBFD47F713CA9368 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C03C9BCD0F0F90F677932438 /* Pods-Twitter.debug.xcconfig */,
+				C03B5BAD24F567200134EDA2 /* Pods-Twitter.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		C29DF09EDE2CC271AF090164 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EE2C162157879353BFC170A2 /* Pods_Twitter.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +114,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0AC29B561C7292420061D8D1 /* Build configuration list for PBXNativeTarget "Twitter" */;
 			buildPhases = (
+				99B11E888DCE183CDB85A44B /* Check Pods Manifest.lock */,
 				0AC29B401C7292420061D8D1 /* Sources */,
 				0AC29B411C7292420061D8D1 /* Frameworks */,
 				0AC29B421C7292420061D8D1 /* Resources */,
+				D24A9056F85A96ED73080B8E /* Embed Pods Frameworks */,
+				D55F5A484B14C69C79A093B1 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -130,12 +176,61 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		99B11E888DCE183CDB85A44B /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D24A9056F85A96ED73080B8E /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Twitter/Pods-Twitter-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D55F5A484B14C69C79A093B1 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Twitter/Pods-Twitter-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		0AC29B401C7292420061D8D1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				0AC29B4A1C7292420061D8D1 /* ViewController.swift in Sources */,
+				0AC29B9B1C729B650061D8D1 /* TwitterClient.swift in Sources */,
 				0AC29B481C7292420061D8D1 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -247,19 +342,24 @@
 		};
 		0AC29B571C7292420061D8D1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C03C9BCD0F0F90F677932438 /* Pods-Twitter.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Twitter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kevinduong.Twitter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		0AC29B581C7292420061D8D1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C03B5BAD24F567200134EDA2 /* Pods-Twitter.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Twitter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kevinduong.Twitter;
@@ -286,6 +386,7 @@
 				0AC29B581C7292420061D8D1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
