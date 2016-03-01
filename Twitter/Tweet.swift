@@ -17,14 +17,17 @@ class Tweet: NSObject {
     var profilePicURL: NSURL?
     var createdAtString: String?
     var createdAt: String?
+    var idString: String?
+    var favoritedBool: Bool?
+    var retweetedBool: Bool?
     
     init(dictionary: NSDictionary) {
         user = User(dictionary: dictionary["user"] as! NSDictionary)
         text = dictionary["text"] as? String
         name = dictionary.valueForKeyPath("user.name") as? String
-        retweeted = dictionary["retweet_count"] as! Int
-        favorited = dictionary["favorite_count"] as! Int
-        
+        retweeted = (dictionary["retweet_count"] as? Int) ?? 0
+        favorited = (dictionary["favorite_count"] as? Int) ?? 0
+        idString = dictionary["id_str"] as? String
         
         let profilePicURLString = dictionary.valueForKeyPath("user.profile_image_url") as? String
         if profilePicURLString != nil {
@@ -34,23 +37,46 @@ class Tweet: NSObject {
         }
         
         createdAtString = dictionary["created_at"] as? String
-        var formatter = NSDateFormatter()
-        formatter.dateFormat = "EEE MMM d HH:mm:ss Z y"
 
-        let date = formatter.dateFromString(createdAtString!)
-        formatter.dateFormat = "h"
-        createdAt = formatter.stringFromDate(date!) + "h"
-
+        if let createdAtString = createdAtString {
+            let formatter = NSDateFormatter()
+            formatter.dateFormat = "EEE MMM d HH:mm:ss Z y"
+            let date = formatter.dateFromString(createdAtString)
+            formatter.dateFormat = "h"
+            createdAt = formatter.stringFromDate(date!) + "h"
+        }
         
-        
+        favoritedBool = dictionary["favorited"] as? Bool
+        retweetedBool = dictionary["retweeted"] as? Bool
     }
     
-    class func tweetsWithArray(array: [NSDictionary]) -> [Tweet] {
+    func favoriteTweet() {
+        TwitterClient.sharedInstance.favorite(idString!)
+        favoritedBool = true
+    }
+    
+    func unfavoriteTweet() {
+        TwitterClient.sharedInstance.unfavorite(idString!)
+        favoritedBool = false
+    }
+    
+    func retweet() {
+        TwitterClient.sharedInstance.retweet(idString!)
+        retweetedBool = true
+    }
+    
+    func unretweet() {
+        TwitterClient.sharedInstance.unretweet(idString!)
+        retweetedBool = false
+    }
+    
+    
+    class func tweetsWithArray(dictionaries: [NSDictionary]) -> [Tweet] {
         var tweets = [Tweet]()
         
-        for dictionary in array {
-            tweets.append(Tweet(dictionary: dictionary))
-            print(dictionary)
+        for dictionary in dictionaries {
+            let tweet = Tweet(dictionary: dictionary)
+            tweets.append(tweet)
         }
         
         return tweets

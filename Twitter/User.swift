@@ -14,63 +14,81 @@ let userDidLoginNotification = "userDidLoginNotification"
 let userDidLogoutNotification = "userDidLogoutNotification"
 
 class User: NSObject {
-    var name: String?
-    var screenName: String?
-    var profileImageUrl: String?
-    var tagline: String?
-    var dictionary: NSDictionary
+//    var name: String?
+//    var screenName: String?
+//    var profileImageUrl: String?
+//    var tagline: String?
+//    var dictionary: NSDictionary
 
+    var name: String?
+    var screenname: String?
+    var profileUrl: NSURL?
+    var tagline: String?
+    var dictionary: NSDictionary?
+    var headerView: NSURL?
+    var followersCount: Int
+    var followingCount: Int
+    var tweetsCount: Int
+    
     init(dictionary: NSDictionary) {
+        
         self.dictionary = dictionary
         
         name = dictionary["name"] as? String
-        screenName = dictionary["screen_name"] as? String
-        profileImageUrl = dictionary["profile_image_url"] as? String
+        screenname = dictionary["screen_name"] as? String
+        
+        let profileUrlString = dictionary["profile_image_url_https"] as? String
+        if let profileUrlString = profileUrlString {
+            profileUrl = NSURL(string: profileUrlString)
+        }
+        
         tagline = dictionary["description"] as? String
+        
+        let headerViewString = dictionary["profile_background_image_url_https"] as? String
+        if let headerViewString = headerViewString {
+            headerView = NSURL(string: headerViewString)
+        }
+        
+        followersCount = dictionary["followers_count"] as! Int
+        
+        followingCount = dictionary["friends_count"]as! Int
+        
+        tweetsCount = dictionary["statuses_count"]as! Int
     }
     
-    func logout() {
-        User.currentUser = nil
-        TwitterClient.sharedInstance.requestSerializer.removeAccessToken()
-        
-        NSNotificationCenter.defaultCenter().postNotificationName(userDidLogoutNotification, object: nil)
-    }
+    static let userDidLogoutNotification = "UserDidLogout"
+    static var _currentUser: User?
     
     class var currentUser: User? {
+        
         get {
             if _currentUser == nil {
-                var data = NSUserDefaults.standardUserDefaults().objectForKey(currentUserKey) as? NSData
-                if data != nil {
-                    let dictionary: NSDictionary?
-                    do {
-                        try dictionary = NSJSONSerialization.JSONObjectWithData(data!, options: .MutableContainers) as? NSDictionary
-                        _currentUser = User(dictionary: dictionary!)
-                    } catch {
-                        print(error)
-                    }
+                let defaults = NSUserDefaults.standardUserDefaults()
+                
+                let userData = defaults.objectForKey("currentUserData") as? NSData
+            
+                if let userData = userData {
+                    let dictionary = try! NSJSONSerialization.JSONObjectWithData(userData, options: []) as! NSDictionary
+                    _currentUser = User(dictionary: dictionary)
                 }
             }
+        
             return _currentUser
         }
         set(user) {
             _currentUser = user
             
-            if _currentUser != nil {
-                _currentUser = user
-                //User need to implement NSCoding; but, JSON also serialized by default
-                if let _ = _currentUser {
-                    var data: NSData?
-                    do {
-                        try data = NSJSONSerialization.dataWithJSONObject(user!.dictionary, options: .PrettyPrinted)
-                        NSUserDefaults.standardUserDefaults().setObject(data, forKey: currentUserKey)
-                    } catch {
-                        print(error)
-                    }
-                }
+            let defaults = NSUserDefaults.standardUserDefaults()
+            
+            if let user = user {
+                let data = try! NSJSONSerialization.dataWithJSONObject(user.dictionary!, options: [])
+                
+                defaults.setObject(data, forKey: "currentUserData")
             } else {
-                NSUserDefaults.standardUserDefaults().setObject(nil, forKey: currentUserKey)
+                defaults.setObject(nil, forKey: "currentUserData")
             }
-            NSUserDefaults.standardUserDefaults().synchronize()
+            
+            defaults.synchronize()
         }
     }
 }

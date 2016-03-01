@@ -14,28 +14,44 @@ import BDBOAuth1Manager
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var storyboard = UIStoryboard(name: "Main", bundle: nil)
+//    var storyboard = UIStoryboard(name: "Main", bundle: nil)
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidLogout", name: userDidLogoutNotification, object: nil)
+//        // Override point for customization after application launch.
+//        
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidLogout", name: userDidLogoutNotification, object: nil)
+//        
+//        if User.currentUser != nil {
+//            // Go to the logged in screen
+//            print("Current user detected: \(User.currentUser?.name)")
+//            
+//            var vc = storyboard.instantiateViewControllerWithIdentifier("navigationController") as UIViewController
+//            window?.rootViewController = vc
+//        }
         
         if User.currentUser != nil {
-            // Go to the logged in screen
-            print("Current user detected: \(User.currentUser?.name)")
+            print("There is a current user")
             
-            var vc = storyboard.instantiateViewControllerWithIdentifier("TweetsViewController") as UIViewController
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewControllerWithIdentifier("navigationController")
+            
             window?.rootViewController = vc
+        }
+        
+        NSNotificationCenter.defaultCenter().addObserverForName(User.userDidLogoutNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (NSNotification) -> Void in
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateInitialViewController()
+            
+            self.window?.rootViewController = vc
         }
         
         return true
     }
     
-    func userDidLogout() {
-        var vc = storyboard.instantiateInitialViewController()! as UIViewController
-        window?.rootViewController = vc
-    }
+//    func userDidLogout() {
+//        var vc = storyboard.instantiateInitialViewController()! as UIViewController
+//        window?.rootViewController = vc
+//    }
 
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -59,13 +75,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
-        TwitterClient.sharedInstance.openURL(url)
+//    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+//        TwitterClient.sharedInstance.openURL(url)
+//        
+//        
+//        return true
+//    }
+
+    func application(app: UIApplication, openURL url: NSURL, options: [String: AnyObject]) -> Bool {
+        print(url.description)
         
+        TwitterClient.sharedInstance.handleOpenUrl(url)
         
         return true
     }
-
-
+    
 }
 
