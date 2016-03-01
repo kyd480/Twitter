@@ -96,6 +96,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 1. POST when put inside TwitterClient and called elsewhere, gets called simultaenously with the rest of the code it's inside of. So if I try to reload the data after calling my method in the TwitterClient, the reloading usually gets called before the POST gets done.
 2. Can you segue to your own view controller to infinitely go onto someone's else timeline and have a tableview of their tweets?
+3. How do you change the color of the back button of the push segue?
 
 ## Video Walkthrough 
 
