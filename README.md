@@ -94,8 +94,8 @@ The following **additional** features are implemented:
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1. 
-2. 
+1. POST when put inside TwitterClient and called elsewhere, gets called simultaenously with the rest of the code it's inside of. So if I try to reload the data after calling my method in the TwitterClient, the reloading usually gets called before the POST gets done.
+2. Can you segue to your own view controller to infinitely go onto someone's else timeline and have a tableview of their tweets?
 
 ## Video Walkthrough 
 
